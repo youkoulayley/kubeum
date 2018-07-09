@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-get-kubeconfig
+  namespace: kube-system
+  labels:
+    app: kube-get-kubeconfig
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kube-get-kubeconfig
+      labels:
+        app: kube-get-kubeconfig
+    spec:
+      containers:
+      - name: kube-get-kubeconfig
+        image: youkoulayley/kube-user-mgmt:latest
+        ports:
+          - containerPort: 8080
+        imagePullPolicy: Always
+        env:
+          - name: "APP_PORT"
+            value: "8080"
+          - name: "API_SERVER_URL"
+            value: "https://localhost:6443"
+          - name: "LOG_LEVEL"
+            value: "Info"
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /health
+            scheme: HTTP
+      restartPolicy: Always
+      serviceAccountName: kube-get-kubeconfig
+  selector:
+    matchLabels:
+      app: kube-get-kubeconfig
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-get-kubeconfig
+  namespace: kube-system
+spec:
+  selector:
+    app: kube-get-kubeconfig
+  ports:
+    - port: 8080
+      nodePort: 31000
+  type: NodePort
