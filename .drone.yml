@@ -1,0 +1,6 @@
+pipeline:
+  build:
+    image: navops/golang-glide-dev:v1.7
+    commands:
+      - make vendor
+      - make docker
