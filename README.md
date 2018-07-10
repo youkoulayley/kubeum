@@ -12,8 +12,8 @@ If the Kubernetes evolves, juste the API need to be modify.
 You can install the app by doing those commands :
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/Youkoulayley/kube-get-kubeconfig/master/manifests/rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/Youkoulayley/kube-get-kubeconfig/master/manifests/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/Youkoulayley/kubeum/master/manifests/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/Youkoulayley/kubeum/master/manifests/deployment.yaml
 ```
 
 These resources will be created : 
