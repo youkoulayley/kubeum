@@ -1,3 +1,5 @@
+![badge](https://drone.journeytotheit.ovh/api/badges/Youkoulayley/kubeum/status.svg)
+
 # Kube User Management
 
 ## API

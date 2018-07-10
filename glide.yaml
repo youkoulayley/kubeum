@@ -14,3 +14,5 @@ import:
   version: v0.0.2
 - package: github.com/ryanuber/columnize
   version: v2.1.0
+- package: k8s.io/apimachinery
+  version: kubernetes-1.11.0
