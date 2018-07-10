@@ -17,23 +17,23 @@ build: fmt
 	GOOS=linux go build -o ./kubeum ./cli/
 
 docker: build
-	docker build -t youkoulayley/kube-user-mgmt .
-	docker push youkoulayley/kube-user-mgmt:latest
+	docker build -t youkoulayley/api-kubeum .
+	docker push youkoulayley/api-kubeum:latest
 
 run: docker
-	docker run -p 8080:8080 --rm -it --name=get-kubeconfig youkoulayley/kube-user-mgmt
+	docker run -p 8080:8080 --rm -it --name=get-kubeconfig youkoulayley/api-kubeum
 
 run-kubernetes: docker
 	kubectl apply -f my_manifests/
-	kubectl patch deployment kube-get-kubeconfig -n kube-system -p \
+	kubectl patch deployment api-kubeum -n kube-system -p \
 	  "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
 
 docker-minikube: build
 	eval $(minikube docker-env) && \
-	docker build -t youkoulayley/kube-user-mgmt .
-	docker push youkoulayley/kube-user-mgmt:latest
+	docker build -t youkoulayley/api-kubeum .
+	docker push youkoulayley/api-kubeum:latest
 
 run-minikube: docker-minikube
 	kubectl apply -f manifests/
-	kubectl patch deployment kube-user-mgmt -n kube-system -p \
+	kubectl patch deployment api-kubeum -n kube-system -p \
       "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"

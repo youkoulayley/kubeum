@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kube-get-kubeconfig
+  name: api-kubeum
   namespace: kube-system
   labels:
-    app: kube-get-kubeconfig
+    app: api-kubeum
 spec:
   replicas: 1
   template:
     metadata:
-      name: kube-get-kubeconfig
+      name: api-kubeum
       labels:
-        app: kube-get-kubeconfig
+        app: api-kubeum
     spec:
       containers:
-      - name: kube-get-kubeconfig
-        image: youkoulayley/kube-user-mgmt:latest
+      - name: api-kubeum
+        image: youkoulayley/api-kubeum:latest
         ports:
           - containerPort: 8080
         imagePullPolicy: Always
@@ -32,19 +32,19 @@ spec:
             path: /health
             scheme: HTTP
       restartPolicy: Always
-      serviceAccountName: kube-get-kubeconfig
+      serviceAccountName: api-kubeum
   selector:
     matchLabels:
-      app: kube-get-kubeconfig
+      app: api-kubeum
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kube-get-kubeconfig
+  name: api-kubeum
   namespace: kube-system
 spec:
   selector:
-    app: kube-get-kubeconfig
+    app: api-kubeum
   ports:
     - port: 8080
       nodePort: 31000
