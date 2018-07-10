@@ -66,5 +66,5 @@ Use "kubeum [command] --help" for more information about a command.
 - [ ] UI
 - [ ] Testing
 - [ ] CI
-- [ ] Goreleaser
+- [X] Goreleaser
 
