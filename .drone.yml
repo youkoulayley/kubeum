@@ -1,6 +1,22 @@
+workspace:
+  base: /go
+  path: src/github.com/youkoulayley/kubeum
+
 pipeline:
   build:
     image: navops/golang-glide-dev:v1.7
     commands:
       - make vendor
-      - make docker
+      - make build
+
+publish_linux:
+  image: plugins/docker:17.05
+  pull: true
+  secrets: [ docker_username, docker_password ]
+  group: release
+  repo: youkoulayley/api-kubeum
+  auto_tag: true
+  dockerfile: Dockerfile
+  when:
+    event: [ push, tag ]
+    local: false
